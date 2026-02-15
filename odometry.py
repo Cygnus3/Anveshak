@@ -13,7 +13,7 @@ class Odometry:
         # Estimated pose (odometry)
         self.x = 5.0
         self.y = 2.5
-        self.theta = 0.523 #(pi/6)
+        self.theta = 0 
 
     def update(self, v, omega, dt):
         """
@@ -32,6 +32,8 @@ class Odometry:
         # --------------------------------
         # Odometry motion integration
         # --------------------------------
-        self.x += v * math.sin(self.theta + 0.1) * dt
-        self.y += v * math.cos(self.theta) * dt
-        self.theta += omega * dt *self.conversion_factor
+        self.x += v * math.cos(self.theta + 0.1) * dt
+        self.y += v * math.sin(self.theta) * dt
+        self.theta += omega * dt 
+        self.theta = normalize_angle(self.theta)
+
