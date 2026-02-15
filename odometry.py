@@ -8,7 +8,7 @@ class Odometry:
         self.gt_x = 5.0
         self.gt_y = 2.5
         self.gt_theta = 0.0
-        self.conversion_factor = 1.3
+        
 
         # Estimated pose (odometry)
         self.x = 5.0
@@ -32,8 +32,9 @@ class Odometry:
         # --------------------------------
         # Odometry motion integration
         # --------------------------------
-        self.x += v * math.cos(self.theta + 0.1) * dt
+        self.x += v * math.cos(self.theta) * dt
         self.y += v * math.sin(self.theta) * dt
         self.theta += omega * dt 
         self.theta = normalize_angle(self.theta)
+
 
