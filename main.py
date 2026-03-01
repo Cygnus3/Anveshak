@@ -269,7 +269,7 @@ if __name__ == "__main__":
                     stuck_timer = 0
                     
                  # maintain lateral distance from hit points
-                if forward_hits:
+                elif forward_hits:
 
                     closest = min(forward_hits,key=lambda h: math.sqrt(h[0]**2 + h[1]**2))
                     hx_robot, hy_robot = closest
@@ -332,6 +332,7 @@ if __name__ == "__main__":
 
 
         plt.pause(dt)
+
 
 
 
