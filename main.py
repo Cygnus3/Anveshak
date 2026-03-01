@@ -95,10 +95,10 @@ if __name__ == "__main__":
     arc_direction = 1          # +1 left | -1 right
     entry_dist_to_goal = float('inf')
     stuck_timer = 0
-    STUCK_LIMIT = 150          # steps before declaring stuck
+    STUCK_LIMIT = 50          # steps before declaring stuck
     prev_dist_to_goal = float('inf')
     no_progress_timer = 0
-    NO_PROGRESS_LIMIT = 200    # steps without progress before override
+    NO_PROGRESS_LIMIT = 100    # steps without progress before override
 
     # -------------------------------------------------
     # Safety thresholds
@@ -332,5 +332,6 @@ if __name__ == "__main__":
             show_lidar=SHOW_LIDAR,
             show_odom=SHOW_ODOM
         )
+
 
         plt.pause(dt)
