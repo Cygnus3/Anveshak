@@ -237,7 +237,6 @@ if __name__ == "__main__":
 
                     if min_forward_dist < STOP_DISTANCE:
                         state = "WALL_FOLLOW"
-                        entry_dist_to_goal = final_dist
                         stuck_timer = 0
                         no_progress_timer = 0
                         prev_dist_to_goal = final_dist
@@ -332,6 +331,7 @@ if __name__ == "__main__":
 
 
         plt.pause(dt)
+
 
 
 
