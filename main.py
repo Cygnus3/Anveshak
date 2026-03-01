@@ -105,7 +105,9 @@ if __name__ == "__main__":
     # -------------------------------------------------
     STOP_DISTANCE = 0.8
     SLOW_DISTANCE = 2.0
-    SAFE_LATERAL  = 0.8  
+    SAFE_LATERAL  = 0.8
+    prev_x = 5.0
+    prev_y = 2.5
 
     # -------------------------------------------------
     # Main simulation loop
@@ -263,10 +265,6 @@ if __name__ == "__main__":
                     w = max(min(w, 2.0), -2.0)
 
                     # stuck detection
-                    prev_x = ideal_x
-                    prev_y = ideal_y
-
-
                     movement = math.sqrt((ideal_x - prev_x)**2 +(ideal_y - prev_y)**2)
 
                     if movement < 0.01:  
@@ -335,3 +333,4 @@ if __name__ == "__main__":
 
 
         plt.pause(dt)
+
