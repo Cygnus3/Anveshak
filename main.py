@@ -135,7 +135,7 @@ if __name__ == "__main__":
             # -------------------------------------------------
             # Lidar zones (used in both states)
             # -------------------------------------------------
-            forward_indices = list(range(0, 4)) + list(range(33, 35))
+            forward_indices = list(range(0, 4)) + list(range(33, 36))
             left_indices    = list(range(4, 14))
             right_indices   = list(range(23, 33))
 
@@ -158,6 +158,7 @@ if __name__ == "__main__":
                 all(lidar_ranges[j] > SLOW_DISTANCE
                     for j in range(i , i+2))
                 for i in forward_indices
+                if i+2 <=36
             )
 
             left_clear = any(
@@ -250,40 +251,39 @@ if __name__ == "__main__":
 
             elif state == "WALL_FOLLOW":
 
+                # stuck detection
+                movement = math.sqrt((ideal_x - prev_x)**2 +(ideal_y - prev_y)**2)
+
+                if movement < 0.01:  
+                    stuck_timer += 1
+                else:
+                    stuck_timer = 0   
+
+                prev_x = ideal_x
+                prev_y = ideal_y
+
+                if stuck_timer > STUCK_LIMIT:
+                    v = -0.2
+                    arc_direction *=  -1
+                    w = arc_direction * 1.5
+                    stuck_timer = 0
+                    
+                 # maintain lateral distance from hit points
                 if forward_hits:
-                    # closest forward hit point
+
                     closest = min(forward_hits,key=lambda h: math.sqrt(h[0]**2 + h[1]**2))
                     hx_robot, hy_robot = closest
 
-                    # lateral error from desired safe distance
                     lateral_error = SAFE_LATERAL - abs(hy_robot)
 
-                    # smooth arc steering proportional to lateral error
                     v = 0.6
                     w = arc_direction * 1.5 * lateral_error
                     w = max(min(w, 2.0), -2.0)
 
-                    # stuck detection
-                    movement = math.sqrt((ideal_x - prev_x)**2 +(ideal_y - prev_y)**2)
-
-                    if movement < 0.01:  
-                        stuck_timer += 1
-                    else:
-                        stuck_timer = 0   
-
-                    prev_x = ideal_x
-                    prev_y = ideal_y
-
-                    if stuck_timer > STUCK_LIMIT:
-                        v = -0.2
-                        arc_direction *=  -1
-                        w = arc_direction * 1.5
-                        stuck_timer = 0
-
                 else: 
                     v = 0.5
                     w = arc_direction * 0.5
-                    stuck_timer = 0
+                    
 
                 # no progress detection 
 
@@ -332,6 +332,7 @@ if __name__ == "__main__":
 
 
         plt.pause(dt)
+
 
 
 
