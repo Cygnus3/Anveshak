@@ -93,7 +93,6 @@ if __name__ == "__main__":
     # -------------------------------------------------
     state = "TO_GOAL"          # TO_GOAL | WALL_FOLLOW
     arc_direction = 1          # +1 left | -1 right
-    entry_dist_to_goal = float('inf')
     stuck_timer = 0
     STUCK_LIMIT = 50          # steps before declaring stuck
     prev_dist_to_goal = float('inf')
@@ -333,5 +332,6 @@ if __name__ == "__main__":
 
 
         plt.pause(dt)
+
 
 
