@@ -136,7 +136,7 @@ if __name__ == "__main__":
             # -------------------------------------------------
             # Lidar zones (used in both states)
             # -------------------------------------------------
-            forward_indices = list(range(0, 4)) + list(range(33, 36))
+            forward_indices = list(range(0, 4)) + list(range(33, 35))
             left_indices    = list(range(4, 14))
             right_indices   = list(range(23, 33))
 
@@ -333,4 +333,5 @@ if __name__ == "__main__":
 
 
         plt.pause(dt)
+
 
